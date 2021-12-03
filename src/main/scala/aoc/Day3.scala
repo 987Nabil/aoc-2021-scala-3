@@ -3,16 +3,12 @@ package aoc
 @main
 def day3(): Unit =
   val bits = readResourceLines("day3.txt").map(_.map(_.toString.toInt))
-  val commonBits = bits.transpose.map(x => (mostCommonBit(x), leastCommonBit(x)))
 
-  val (gamma, epsilon) =
-    commonBits.reverse.zipWithIndex
-      .foldLeft((0, 0)) { case ((gamma, epsilon), ((mcb, lcb), i)) =>
-        (gamma + (mcb << i), epsilon + (lcb << i))
-      }
+  val gamma = Integer.parseInt(bits.transpose.map(mostCommonBit).mkString, 2)
+  val epsilon = Integer.parseInt(bits.transpose.map(leastCommonBit).mkString, 2)
 
   val (Seq(oxygen), Seq(co2)) =
-    commonBits.indices.foldLeft((bits, bits)) {
+    bits.head.indices.foldLeft((bits, bits)) {
       case ((oxygenBitsLeft, co2BitsLeft), i) =>
         val mcb = oxygenBitsLeft.transpose.map(mostCommonBit)(i)
         val lcb = co2BitsLeft.transpose.map(leastCommonBit)(i)
@@ -23,13 +19,10 @@ def day3(): Unit =
     }
 
   println(s"part 1: ${gamma * epsilon}")
-  println(s"part 2: ${toBinary(oxygen) * toBinary(co2)}")
+  println(s"part 2: ${Integer.parseInt(oxygen.mkString, 2) * Integer.parseInt(co2.mkString, 2)}")
 
 def mostCommonBit(bits: Seq[Int]): Int =
   if bits.count(_ == 1) >= bits.count(_ == 0) then 1 else 0
 
 def leastCommonBit(bits: Seq[Int]) =
-  if bits.count(_ == 1) < bits.count(_ == 0)then 1 else 0
-
-def toBinary(bits: Seq[Int]): Int =
-  bits.reverse.zipWithIndex.foldLeft(0) { case (acc, (bit, i)) => acc + (bit << i) }
+  if bits.count(_ == 1) < bits.count(_ == 0) then 1 else 0
