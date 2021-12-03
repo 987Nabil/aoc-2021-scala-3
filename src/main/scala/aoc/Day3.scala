@@ -27,7 +27,9 @@ def day3(): Unit =
 
 def mostCommonBit(bits: Seq[Int]): Int =
   if bits.count(_ == 1) >= bits.count(_ == 0) then 1 else 0
+
 def leastCommonBit(bits: Seq[Int]) =
   if bits.count(_ == 1) < bits.count(_ == 0)then 1 else 0
+
 def toBinary(bits: Seq[Int]): Int =
   bits.reverse.zipWithIndex.foldLeft(0) { case (acc, (bit, i)) => acc + (bit << i) }
