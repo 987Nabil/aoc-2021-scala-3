@@ -80,8 +80,5 @@ def day4(): Unit =
         (newBoards.filterNot(_.won), mayBeWinner.orElse(winningBoard))
     }
 
-  println(s"lastWinningBoard = ${lastWinningBoard}")
-  println(s"lastWinningBoard = ${lastLastDraw}")
-
   println(s"part 1: ${winningBoard.score(lastDraw)}")
   println(s"part 2: ${lastWinningBoard.score(lastLastDraw)}")
