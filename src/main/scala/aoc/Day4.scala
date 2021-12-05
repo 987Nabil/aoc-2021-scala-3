@@ -8,9 +8,8 @@ case class BingoBoard(r1: Row, r2: Row, r3: Row, r4: Row, r5: Row):
     column(c).forall(_.marked)
 
   def won: Boolean =
-    (0 until productArity).exists(columnMarked) || productIterator.exists { case r: Row =>
-      r.marked
-    }
+    (0 until productArity).exists(columnMarked)
+      || productIterator.exists { case r: Row => r.marked }
 
   def mark(draw: Int): BingoBoard =
     copy(r1.mark(draw), r2.mark(draw), r3.mark(draw), r4.mark(draw), r5.mark(draw))
