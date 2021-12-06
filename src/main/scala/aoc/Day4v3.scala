@@ -1,7 +1,5 @@
 package aoc
 
-import scala.collection.immutable.{AbstractSeq, LinearSeq}
-
 @main
 def day4_v3(): Unit =
   val input  = readResourceLines("day4.txt")
