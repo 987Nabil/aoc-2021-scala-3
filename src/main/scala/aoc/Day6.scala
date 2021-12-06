@@ -19,7 +19,7 @@ def fishCountByDueDate(fish: List[Int]): Map[Int, Long] =
   (0 to 8).map(i => i -> fish.count(_ == i).toLong).toMap
 
 def notDeliveringOrNewBorn(lastDayFish: Map[Int, Long]): Map[Int, Long] =
-  lastDayFish.tail.map { _ - 1 -> _ }.toMap
+  lastDayFish.tail.map(_ - 1 -> _).toMap
 
 def justDelivered(lastDayFish: Map[Int, Long]): (Int, Long) =
   6 -> (notDeliveringOrNewBorn(lastDayFish)(6) + lastDayFish(0))
