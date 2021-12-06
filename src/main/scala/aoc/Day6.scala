@@ -2,30 +2,29 @@ package aoc
 
 @main
 def day6(): Unit =
-  val fish = readResourceLines("day6.txt").head.split(',').toList.map(_.toInt)
+  val fish = fishCountByDueDate(readResourceLines("day6.txt").head.split(',').toList.map(_.toInt))
 
-  val part1 =
-    (1 to 80)
-      .foldLeft(fish) { case (fish, _) =>
-        fish.flatMap {
-          case 0 => 6 :: 8 :: Nil
-          case x => x - 1 :: Nil
-        }
-      }
-      .size
+  println(s"part 1: ${fishPopulationAfter(fish, daysToObserve = 80)}")
+  println(s"part 2: ${fishPopulationAfter(fish, daysToObserve = 256)}")
 
-  val part2 =
-    (1 to 256)
-      .foldLeft((0 to 8).map(i => i -> fish.count(_ == i).toLong).toMap) { case (lastDayFish, _) =>
-        val todayFishNotDeliveringOrNewBorn = (for i <- 1 to 8 yield i - 1 -> lastDayFish(i)).toMap
+def fishPopulationAfter(fish: Map[Int, Long], daysToObserve: Int): Long =
+  (1 to daysToObserve)
+    .foldLeft(fish) { case (lastDayFish, _) =>
+      todayFishNotDeliveringOrNewBorn(lastDayFish)
+        + fishDeliveringNextWeek(lastDayFish)
+        + newBornFish(lastDayFish)
+    }
+    .values
+    .sum
 
-        val fishDeliveringNextWeek = 6 -> (todayFishNotDeliveringOrNewBorn(6) + lastDayFish(0))
-        val newBornFish            = 8 -> lastDayFish(0)
+def fishCountByDueDate(fish: List[Int]): Map[Int, Long] =
+  (0 to 8).map(i => i -> fish.count(_ == i).toLong).toMap
 
-        todayFishNotDeliveringOrNewBorn + fishDeliveringNextWeek + newBornFish
-      }
-      .values
-      .sum
+def todayFishNotDeliveringOrNewBorn(lastDayFish: Map[Int, Long]): Map[Int, Long] =
+  (for i <- 1 to 8 yield i - 1 -> lastDayFish(i)).toMap
 
-  println(s"part 1: $part1")
-  println(s"part 2: $part2")
+def fishDeliveringNextWeek(lastDayFish: Map[Int, Long]): (Int, Long) =
+  6 -> (todayFishNotDeliveringOrNewBorn(lastDayFish)(6) + lastDayFish(0))
+
+def newBornFish(lastDayFish: Map[Int, Long]): (Int, Long) =
+  8 -> lastDayFish(0)
