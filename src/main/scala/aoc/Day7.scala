@@ -11,10 +11,9 @@ def day7(): Unit =
   println(s"part 1: $fuelUsed")
   println(s"part 2: $fuelUsed2")
 
-def cheapestCosts(alignmentRange: Range)(costFn: Int => Int) =
-  alignmentRange.foldLeft((-1, Int.MaxValue)) { case (old @ (_, minCost), alignTo) =>
-    if minCost <= costFn(alignTo) then old
-    else (alignTo, costFn(alignTo))
+def cheapestCosts(alignments: Range)(costs: Int => Int) =
+  alignments.foldLeft((-1, Int.MaxValue)) { case (old @ (_, minCost), alignTo) =>
+    if minCost <= costs(alignTo) then old else (alignTo, costs(alignTo))
   }
 
 def crabMarineFuelCosts1(positions: List[Int])(alignTo: Int): Int =
