@@ -17,7 +17,7 @@ def cheapestCosts(alignments: Range)(costs: Int => Int) =
   }
 
 def crabMarineFuelCosts1(positions: List[Int])(alignTo: Int): Int =
-  positions.foldLeft(0)((usedFuel, nextPos) => usedFuel + (nextPos - alignTo).abs)
+  positions.map(nextPos => (nextPos - alignTo).abs).sum
 
 def crabMarineFuelCosts2(positions: List[Int])(alignTo: Int) =
-  positions.map { nextPos => (1 to (nextPos - alignTo).abs).sum }.sum
+  positions.map(nextPos => (1 to (nextPos - alignTo).abs).sum).sum
