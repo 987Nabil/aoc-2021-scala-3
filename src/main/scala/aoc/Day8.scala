@@ -14,8 +14,8 @@ def day8(): Unit =
   val res = in.map { (key, value) =>
     def `0` = key.filter(_.size == 6).find(n => n != `6` && n != `9`).get
     def `1` = key.find(_.size == 2).get
-    def `2` = key.filter(y => y.size == 5).find(y => y != `3` && y ++ `1` != `9`).get
-    def `3` = key.filter(_.size == 5).find(n => `1`.diff(n).isEmpty).get
+    def `2` = key.filter(_.size == 5).find(n => n != `3` && n ++ `1` != `9`).get
+    def `3` = key.filter(_.size == 5).find(n => `1` subsetOf n).get
     def `4` = key.find(_.size == 4).get
     def `6` = key.filter(_.size == 6).find(n => n != `9` && (`4` -- `1`).subsetOf(n)).get
     def `7` = key.find(_.size == 3).get
