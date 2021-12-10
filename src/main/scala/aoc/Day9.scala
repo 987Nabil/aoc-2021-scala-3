@@ -5,13 +5,12 @@ import aoc.{getPoint, point}
 import scala.annotation.tailrec
 
 @main
-def day9(): Unit =
-  val map = readResourceLines("day9.txt").map(_.grouped(1).toSeq.map(_.toInt))
+def day9(): Unit = day[9] {
+  val map = input.map(_.grouped(1).toSeq.map(_.toInt))
 
-  def adjacent(x: Int, y: Int) = map.getPoint(x, y).map(_ => (x, y))
-
+  def adjacent(x: Int, y: Int)                        = map.getPoint(x, y).map(_ => (x, y))
   def adjacentPoints(x: Int, y: Int): Set[(Int, Int)] =
-    Set(adjacent(x, y - 1), adjacent(x, y + 1), adjacent(x - 1, y), adjacent(x + 1, y)).flatten
+    Set((0, 1), (0, -1), (1, 0), (-1, 0)).flatMap((xs, ys) => adjacentPoints(x + xs, y + ys))
 
   val lowPoints =
     for
@@ -31,5 +30,6 @@ def day9(): Unit =
 
   val basins = for lowPoint <- lowPoints yield basin(Set(lowPoint), Set(lowPoint))
 
-  println(s"part 1: ${lowPoints.map(map.point).sum + lowPoints.size}")
-  println(s"part 2: ${basins.map(_.size).toList.sorted.takeRight(3).product}")
+  part[1](lowPoints.map(map.point).sum + lowPoints.size)
+  part[2](basins.map(_.size).toList.sorted.takeRight(3).product)
+}
