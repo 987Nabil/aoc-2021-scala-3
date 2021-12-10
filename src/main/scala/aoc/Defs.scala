@@ -11,5 +11,9 @@ extension [T](map: Seq[Seq[T]])
   def point(x: Int, y: Int): T            = map(y)(x)
   def getPoint(x: Int, y: Int): Option[T] = map.lift(y).flatMap(_.lift(x))
 
-extension [T] (x:T)
+extension [T](x: T)
   inline def pipe[X](inline f: T => X) = f(x)
+  inline def tap[U](f: T => U): T      = {
+    f(x)
+    x
+  }
