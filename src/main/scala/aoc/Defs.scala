@@ -17,3 +17,17 @@ extension [T](x: T)
     f(x)
     x
   }
+
+type CoordMap = Map[Coord, Int]
+type Coord    = (Int, Int)
+
+extension (c: Coord)
+  def x = c._1
+  def y = c._2
+
+extension (map: CoordMap)
+  def neighbour(c: Coord)              = map.get(c).map(_ => c)
+  def neighbours(c: Coord): Set[Coord] =
+    Set((0, 1), (0, -1), (1, 0), (-1, 0), (-1, -1), (-1, 1), (1, 1), (1, -1)).flatMap((x, y) =>
+      map.neighbour(c.x + x, c.y + y)
+    )
