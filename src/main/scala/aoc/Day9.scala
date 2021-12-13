@@ -10,7 +10,7 @@ def day9(): Unit = day[9] {
 
   def adjacent(x: Int, y: Int)                        = map.getPoint(x, y).map(_ => (x, y))
   def adjacentPoints(x: Int, y: Int): Set[(Int, Int)] =
-    Set((0, 1), (0, -1), (1, 0), (-1, 0)).flatMap((xs, ys) => adjacentPoints(x + xs, y + ys))
+    Set((0, 1), (0, -1), (1, 0), (-1, 0)).flatMap((xs, ys) => adjacent(x + xs, y + ys))
 
   val lowPoints =
     for
