@@ -18,7 +18,7 @@ type Parts = 1 | 2
 
 type Result = Int | Long
 
-def timed[T](fn: => T): (T, Duration) =
+inline def timed[T](fn: => T): (T, Duration) =
   val start  = System.currentTimeMillis()
   val result = fn
   (result, Duration(System.currentTimeMillis() - start, TimeUnit.MILLISECONDS))
@@ -70,4 +70,5 @@ def formatTable(table: Seq[Seq[Any]]): String =
 
 extension (s: String)
   def blue = Console.BLUE + s + Console.RESET
+  def red = Console.RED + s + Console.RESET
   def bold = Console.BOLD + s + Console.RESET
