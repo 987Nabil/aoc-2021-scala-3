@@ -31,3 +31,7 @@ extension (map: CoordMap)
     Set((0, 1), (0, -1), (1, 0), (-1, 0), (-1, -1), (-1, 1), (1, 1), (1, -1)).flatMap((x, y) =>
       map.neighbour(c.x + x, c.y + y)
     )
+  def nonDiagonalNeighbours(c: Coord): Set[Coord] =
+    Set((0, 1), (0, -1), (1, 0), (-1, 0)).flatMap((x, y) =>
+      map.neighbour(c.x + x, c.y + y)
+    )
