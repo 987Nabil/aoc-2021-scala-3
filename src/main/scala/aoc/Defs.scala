@@ -35,3 +35,8 @@ extension (map: CoordMap)
     Set((0, 1), (0, -1), (1, 0), (-1, 0)).flatMap((x, y) =>
       map.neighbour(c.x + x, c.y + y)
     )
+
+extension (s:String)
+  def binary = java.lang.Long.parseLong(s, 2)
+  def binaryInt = Integer.parseInt(s, 2)
+  def hex = java.lang.Long.parseLong(s, 16)
