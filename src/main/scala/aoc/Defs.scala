@@ -22,21 +22,22 @@ type CoordMap = Map[Coord, Int]
 type Coord    = (Int, Int)
 
 extension (c: Coord)
-  def x = c._1
-  def y = c._2
+  def x                       = c._1
+  def y                       = c._2
+  def neighbours: List[Coord] =
+    List((-1, -1), (0, -1), (1, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1))
+      .map((x, y) => (c.x + x, c.y + y))
 
 extension (map: CoordMap)
-  def neighbour(c: Coord)              = map.get(c).map(_ => c)
-  def neighbours(c: Coord): Set[Coord] =
+  def neighbour(c: Coord)                         = map.get(c).map(_ => c)
+  def neighbours(c: Coord): Set[Coord]            =
     Set((0, 1), (0, -1), (1, 0), (-1, 0), (-1, -1), (-1, 1), (1, 1), (1, -1)).flatMap((x, y) =>
       map.neighbour(c.x + x, c.y + y)
     )
   def nonDiagonalNeighbours(c: Coord): Set[Coord] =
-    Set((0, 1), (0, -1), (1, 0), (-1, 0)).flatMap((x, y) =>
-      map.neighbour(c.x + x, c.y + y)
-    )
+    Set((0, 1), (0, -1), (1, 0), (-1, 0)).flatMap((x, y) => map.neighbour(c.x + x, c.y + y))
 
-extension (s:String)
-  def binary = java.lang.Long.parseLong(s, 2)
+extension (s: String)
+  def binary    = java.lang.Long.parseLong(s, 2)
   def binaryInt = Integer.parseInt(s, 2)
-  def hex = java.lang.Long.parseLong(s, 16)
+  def hex       = java.lang.Long.parseLong(s, 16)

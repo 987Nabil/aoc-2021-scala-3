@@ -71,4 +71,6 @@ def formatTable(table: Seq[Seq[Any]]): String =
 extension (s: String)
   def blue = Console.BLUE + s + Console.RESET
   def red = Console.RED + s + Console.RESET
+  def green = Console.GREEN + s + Console.RESET
+  def magenta = Console.MAGENTA + s + Console.RESET
   def bold = Console.BOLD + s + Console.RESET
